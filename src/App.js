@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Answer from './components/Answer';
 
-function App() {
+const App = () => {
+  const [score, setScore] = useState(0);
+  const [a, setA] = useState(generateRandomNumber());
+  const [b, setB] = useState(generateRandomNumber());
+
+  function generateRandomNumber() {
+    return Math.floor(Math.random() * 10); 
+  }
+
+  const updatePoints = (isCorrect) => {
+    if (isCorrect) {
+      setScore(score + 1);
+    } else {
+      setScore(score - 1); 
+    }
+ 
+    setA(generateRandomNumber());
+    setB(generateRandomNumber());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="container"> {}
+    <h2>Ваши очки: {score}</h2>
+    <h3> {a} + {b} = ?</h3>
+    <Answer a={a} b={b} updatePoints={updatePoints} />
+  </div>
   );
-}
+};
 
 export default App;
+
